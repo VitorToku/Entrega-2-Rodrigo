@@ -17,7 +17,7 @@ URL = "https://raw.githubusercontent.com/profviniciusheltai/AulaIA/refs/heads/ma
 df = pd.read_csv(URL)
 
 # Visualização Inicial dos Dados:
-display(df.head())
+print(df.head())
 print(df['inadimplente'].value_counts())
 
 # 02 - PRE-VISUALIZAÇÃO DOS DADOS (GRAFICOS):

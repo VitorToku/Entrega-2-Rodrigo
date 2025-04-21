@@ -155,37 +155,37 @@ prever_inadimplencia(24, 1500.20, 4050.00, 20, 8)
 # 07 - CRIANDO INTERFACE PARA COLAB E JUPYPER:
 
 # Importação da Lib / Modulo
-from IPython.display import display
-import ipywidgets as widgets
+# from IPython.display import display
+# import ipywidgets as widgets
 
-def formulario():
-  idade = widgets.FloatText(description="Idade:")
-  renda = widgets.FloatText(description="Renda Mensal:")
-  valor = widgets.FloatText(description="Valor Financiamento:")
-  tempo = widgets.FloatText(description="Anos Trabalhado:")
-  score = widgets.FloatText(description="Score Credito:")
+# def formulario():
+#   idade = widgets.FloatText(description="Idade:")
+#   renda = widgets.FloatText(description="Renda Mensal:")
+#   valor = widgets.FloatText(description="Valor Financiamento:")
+#   tempo = widgets.FloatText(description="Anos Trabalhado:")
+#   score = widgets.FloatText(description="Score Credito:")
 
-  botao = widgets.Button(description="Prever Inadimplencia")
+#   botao = widgets.Button(description="Prever Inadimplencia")
 
-  def ao_clicar(b):
-    entrada = pd.DataFrame([{
-        'idade': idade.value,
-        'renda_mensal': renda.value,
-        'valor_financiamento': valor.value,
-        'anos_trabalho': tempo.value,
-        'score_credito': score.value
-    }])
+#   def ao_clicar(b):
+#     entrada = pd.DataFrame([{
+#         'idade': idade.value,
+#         'renda_mensal': renda.value,
+#         'valor_financiamento': valor.value,
+#         'anos_trabalho': tempo.value,
+#         'score_credito': score.value
+#     }])
 
-    entrada_scaled = scaler.transform(entrada)
-    pred = modelo.predict(entrada_scaled)[0]
-    prob = modelo.predict_proba(entrada_scaled)[0]
+#     entrada_scaled = scaler.transform(entrada)
+#     pred = modelo.predict(entrada_scaled)[0]
+#     prob = modelo.predict_proba(entrada_scaled)[0]
 
-    print("\n **** RESULTADO DA PREDIÇÃO ****")
-    print(f"  -> Inadimplente: {'Sim' if pred == 1 else 'Não'}")
-    print(f"  -> Prob. de Inadimplencia: {round(prob[1]*100, 2)}%")
-    print(f"  -> Prob. de Adimplencia  : {round(prob[0]*100, 2)}%")
+#     print("\n **** RESULTADO DA PREDIÇÃO ****")
+#     print(f"  -> Inadimplente: {'Sim' if pred == 1 else 'Não'}")
+#     print(f"  -> Prob. de Inadimplencia: {round(prob[1]*100, 2)}%")
+#     print(f"  -> Prob. de Adimplencia  : {round(prob[0]*100, 2)}%")
 
-  botao.on_click(ao_clicar)
-  display(idade, renda, valor, tempo, score, botao)
+#   botao.on_click(ao_clicar)
+#   display(idade, renda, valor, tempo, score, botao)
 
-formulario()
+# formulario()

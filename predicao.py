@@ -1,7 +1,16 @@
-from flask import Flask
+from flask import Flask, request, jsonify
+from joblib import load
+import numpy as np
 
 app = Flask(__name__)
+modelo = load("meu_modelo_treinado.joblib")
 
-@app.route("/")
-def hello_world():
-    return "<p>Hello, World!</p>"
+@app.route('/prever', methods=['POST'])
+def prever():
+    dados = request.get_json()
+    valores = np.array([dados["valores"]])
+    pred = modelo.predict(valores)
+    return jsonify({'previsao': pred.tolist()})
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=5000)

@@ -12,10 +12,11 @@ def hello():
     
 @app.route('/prever', methods=['POST'])
 def prever():
-    print("Começou")
+    print(f'Valor da request: {request}')
     dados = request.get_json()
+    print(f'Valor de dados: {dados}')
     df = pd.DataFrame(dados["valores"])
-    
+    print(f'Valor de df: {df}')
     pred = modelo.predict(df)[0]
     
     return jsonify({'previsao': pred.tolist()})

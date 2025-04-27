@@ -14,7 +14,7 @@ def hello():
 def prever():
     print("Começou")
     dados = request.get_json()
-    df = pd.DataFrame(dados)
+    df = pd.DataFrame(dados["valores"])
     
     pred = modelo.predict(df)
     

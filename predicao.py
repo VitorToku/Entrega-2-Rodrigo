@@ -16,7 +16,7 @@ def prever():
     dados = request.get_json()
     df = pd.DataFrame(dados["valores"])
     
-    pred = modelo.predict(df)
+    pred = modelo.predict(df)[0]
     
     return jsonify({'previsao': pred.tolist()})
 

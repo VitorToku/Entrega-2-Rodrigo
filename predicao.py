@@ -7,9 +7,11 @@ modelo = load("meu_modelo_treinado.joblib")
 
 @app.route('/prever', methods=['POST'])
 def prever():
+    print("Começou")
     dados = request.get_json()
     valores = np.array([dados["valores"]])
     pred = modelo.predict(valores)
+    
     return jsonify({'previsao': pred.tolist()})
 
 if __name__ == '__main__':

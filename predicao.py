@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify
 from joblib import load
 import numpy as np
+import pandas as pd
 
 app = Flask(__name__)
 modelo = load("meu_modelo_treinado.joblib")
@@ -13,8 +14,9 @@ def hello():
 def prever():
     print("Começou")
     dados = request.get_json()
-    valores = np.array([dados["valores"]])
-    pred = modelo.predict(valores)
+    df = pd.DataFrame(dados)
+    
+    pred = modelo.predict(df)
     
     return jsonify({'previsao': pred.tolist()})
 

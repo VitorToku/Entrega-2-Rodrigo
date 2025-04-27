@@ -5,6 +5,10 @@ import numpy as np
 app = Flask(__name__)
 modelo = load("meu_modelo_treinado.joblib")
 
+@app.route('/', methods=['GET'])
+def hello():
+    return "Hello"
+    
 @app.route('/prever', methods=['POST'])
 def prever():
     print("Começou")

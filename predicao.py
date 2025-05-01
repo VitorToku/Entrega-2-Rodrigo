@@ -31,8 +31,9 @@ def get_precoCorrida():
     origem = request.args.get('origem')
     print(f'Origem: {origem}')
     destino = request.args.get('destino')
-    print(f'Destio: {destino}')
-    
+    print(f'Destino: {destino}')
+
+    print(encoder.classes_)
     api_key = "AIzaSyCDmnx17lJCCO7GMJEIlqeBlRjnHxfI8b8"
     rota = f"https://maps.googleapis.com/maps/api/distancematrix/json?destinations={destino}&origins={origem}&key={api_key}"
 
@@ -44,7 +45,7 @@ def get_precoCorrida():
     duracao_segundos = jsonRota['rows'][0]['elements'][0]['duration']['value']
     duracao_minutos = duracao_segundos // 60
 
-    codigos_categorias = df['ProductID_encoded'].unique().tolist()
+    codigos_categorias = encoder
     precos_por_categoria = {}
 
     for codigo in codigos_categorias:

@@ -29,8 +29,10 @@ def prever():
 def get_precoCorrida():
     agora = datetime.now()
     origem = request.args.get('origem')
+    print(f'Origem: {origem}')
     destino = request.args.get('destino')
-
+    print(f'Destio: {destino}')
+    
     api_key = "AIzaSyCDmnx17lJCCO7GMJEIlqeBlRjnHxfI8b8"
     rota = f"https://maps.googleapis.com/maps/api/distancematrix/json?destinations={destino}&origins={origem}&key={api_key}"
 

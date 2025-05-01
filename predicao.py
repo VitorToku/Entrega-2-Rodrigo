@@ -4,6 +4,7 @@ import requests
 from datetime import datetime
 import numpy as np
 import pandas as pd
+import json
 
 app = Flask(__name__)
 loaded = load("meu_modelo_treinado.joblib")

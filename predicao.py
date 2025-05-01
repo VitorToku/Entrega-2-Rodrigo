@@ -45,7 +45,7 @@ def get_precoCorrida():
     duracao_segundos = jsonRota['rows'][0]['elements'][0]['duration']['value']
     duracao_minutos = duracao_segundos // 60
 
-    codigos_categorias = encoder
+    codigos_categorias = list(range(len(encoder.classes_)))
     precos_por_categoria = {}
 
     for codigo in codigos_categorias:

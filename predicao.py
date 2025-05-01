@@ -36,7 +36,7 @@ def get_precoCorrida():
 
     responseRota = requests.get(rota)
     jsonRota = responseRota.json()
-
+    print(jsonRota)
     distancia = jsonRota['rows'][0]['elements'][0]['distance']['value']
 
     duracao_segundos = jsonRota['rows'][0]['elements'][0]['duration']['value']

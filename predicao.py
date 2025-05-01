@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify
 from joblib import load
+import requests
 from datetime import datetime
 import numpy as np
 import pandas as pd
@@ -33,7 +34,7 @@ def get_precoCorrida():
     api_key = "AIzaSyCDmnx17lJCCO7GMJEIlqeBlRjnHxfI8b8"
     rota = f"https://maps.googleapis.com/maps/api/distancematrix/json?destinations={destino}&origins={origem}&key={api_key}"
 
-    responseRota = request.get(rota)
+    responseRota = requests.get(rota)
     jsonRota = responseRota.json()
 
     distancia = jsonRota['rows'][0]['elements'][0]['distance']['value']

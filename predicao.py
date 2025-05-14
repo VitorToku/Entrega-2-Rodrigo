@@ -95,17 +95,17 @@ def get_precoCorrida():
                 'duracao_s': duracao_segundos,
             }])
 
-        pred = model.predict(entrada)[0]
+            pred = model.predict(entrada)[0]
 
-        nome_empresa = "99" if id_empresa == 2 else "Uber"
+            nome_empresa = "99" if id_empresa == 2 else "Uber"
       
 
-        if nome_empresa not in precos_por_categoria:
-            precos_por_categoria[nome_empresa] = {}
+            if nome_empresa not in precos_por_categoria:
+                precos_por_categoria[nome_empresa] = {}
 
-        precos_por_categoria[nome_empresa][categoria] = round(pred, 2)
+            precos_por_categoria[nome_empresa][categoria] = round(pred, 2)
     
-        json_precos = json.dumps(precos_por_categoria, ensure_ascii=False, indent=2)
+            json_precos = json.dumps(precos_por_categoria, ensure_ascii=False, indent=2)
     return json_precos
 
 

@@ -32,55 +32,58 @@ def prever():
 def get_precoCorrida():
     agora = datetime.now(pytz.timezone('America/Sao_Paulo'))
 
+    # Categorias disponíveis
     listaCategorias = {
         3: {
             1: "Comfort",
             2: "UberX",
-            4: "Black",
-            5: "Táxi Promo",
-            10: "Flash"
+            4: "Black"
         },
-        2 :  {
-            1: "Plus",
-            2: "Pop",
-            5: "Táxi",
-            6: "Top",
+        2: {
+            2: "Pop"
         }
     }
 
     origem = request.args.get('origem')
-    print(f'Origem: {origem}')
     destino = request.args.get('destino')
-    print(f'Destino: {destino}')
 
     api_key = "AIzaSyCDmnx17lJCCO7GMJEIlqeBlRjnHxfI8b8"
     rota = f"https://maps.googleapis.com/maps/api/distancematrix/json?destinations={destino}&origins={origem}&key={api_key}"
 
     responseRota = requests.get(rota)
     jsonRota = responseRota.json()
-    print(jsonRota)
+
+    # Distância e duração
     distancia = jsonRota['rows'][0]['elements'][0]['distance']['value']
+    duracao_segundos = jsonRota['rows'][0]['elements'][0]['duration_in_traffic']['value']
 
-    duracao_segundos = jsonRota['rows'][0]['elements'][0]['duration']['value']
-
+    # Data e hora
     hora_atual = agora.hour
     dia = agora.day
     mes = agora.month
     ano = agora.year
-    eh_fim_de_semana = agora.weekday() in [6,7]
+    eh_fim_de_semana = agora.weekday() in [6, 7]
     numero_dia_semana = agora.weekday()
 
-    precos_por_categoria = []
-    if(distancia > 15000):
-        model = modelo_linear
-        nome = "Linear Regression"
+    # Escolher modelo
+    if distancia > 15000:
+    model = modelo_linear
+    nome_modelo = "Linear Regression"
     else:
-        model = modelo_rf
-        nome = "Random Forest"
+    model = modelo_rf
+    nome_modelo = "Random Forest"
 
-    print(f'--------------------{nome}----------------------------')
-    for id_empresa,categorias in listaCategorias.items():
+    # Armazenar os preços por categoria
+    precos_por_categoria = {}
+
+    print(f'--------------------{nome_modelo}----------------------------')
+
+    # Prever categorias
+    preco_pop_99 = None
+
+    for id_empresa, categorias in listaCategorias.items():
         for id_categoria, categoria in categorias.items():
+            nome_empresa = "99" if id_empresa == 2 else "Uber"
 
             entrada = pd.DataFrame([{
                 'id_prestador': id_empresa,
@@ -88,7 +91,7 @@ def get_precoCorrida():
                 'dia': dia,
                 'mes': mes,
                 'ano': ano,
-                'eh_fim_de_semana':eh_fim_de_semana,
+                'eh_fim_de_semana': eh_fim_de_semana,
                 'hora': hora_atual,
                 'numero_dia_semana': numero_dia_semana,
                 'distancia_m': distancia,
@@ -96,16 +99,24 @@ def get_precoCorrida():
             }])
 
             pred = model.predict(entrada)[0]
+            preco = round(pred, 2)
 
-            nome_empresa = "99" if id_empresa == 2 else "Uber"
-      
+            # Armazena o valor do Pop para depois usar
+            if nome_empresa == "99" and categoria == "Pop":
+                preco_pop_99 = preco
 
-            precos_por_categoria.append({
-                "empresa": nome_empresa,
-                "categoria": categoria,
-                "preco": round(pred, 2)
-            })
-    precos_por_categoria.sort(key=lambda item: item['preco'])
+            # Cria a empresa no dicionário se necessário
+            if nome_empresa not in precos_por_categoria:
+                precos_por_categoria[nome_empresa] = {}
+
+            precos_por_categoria[nome_empresa][categoria] = preco
+
+    # Deriva os valores calculados para Plus e Pop Expresso
+    if preco_pop_99:
+        precos_por_categoria["99"]["Plus"] = round(preco_pop_99 * 1.4, 2)
+        precos_por_categoria["99"]["Pop Expresso"] = round(preco_pop_99 * 1.1499, 2)
+
+    # Mostrar resultados
     json_precos = json.dumps(precos_por_categoria, ensure_ascii=False, indent=2)
     return json_precos
 

@@ -118,6 +118,7 @@ def get_precoCorrida():
 
     # Mostrar resultados
     json_precos = json.dumps(precos_por_categoria, ensure_ascii=False, indent=2)
+    print(json_precos)
     return json_precos
 
 

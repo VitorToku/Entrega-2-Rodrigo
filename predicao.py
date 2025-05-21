@@ -65,8 +65,8 @@ def get_precoCorrida():
     eh_fim_de_semana = agora.weekday() in [6, 7]
     numero_dia_semana = agora.weekday()
 
-    # Escolher modelo
-    if distancia > 15000:
+    precos_por_categoria = {}
+    if(distancia > 15000):
         model = modelo_linear
         nome_modelo = "Linear Regression"
     else:
@@ -109,20 +109,12 @@ def get_precoCorrida():
             if nome_empresa not in precos_por_categoria:
                 precos_por_categoria[nome_empresa] = {}
 
-            precos_por_categoria.append({
-                "empresa": nome_empresa,
-                "categoria": categoria,
-                "preco": preco
-            })
+            if nome_empresa not in precos_por_categoria:
+                precos_por_categoria[nome_empresa] = {}
 
-    # Deriva os valores calculados para Plus e Pop Expresso
-    if preco_pop_99:
-        precos_por_categoria["99"]["Plus"] = round(preco_pop_99 * 1.4, 2)
-        precos_por_categoria["99"]["Pop Expresso"] = round(preco_pop_99 * 1.1499, 2)
-
-    # Mostrar resultados
-    json_precos = json.dumps(precos_por_categoria, ensure_ascii=False, indent=2)
-    print(json_precos)
+            precos_por_categoria[nome_empresa][categoria] = round(pred, 2)
+    
+            json_precos = json.dumps(precos_por_categoria, ensure_ascii=False, indent=2)
     return json_precos
 
 

@@ -74,7 +74,7 @@ def get_precoCorrida():
         nome_modelo = "Random Forest"
 
     # Armazenar os preços por categoria
-    precos_por_categoria = {}
+    precos_por_categoria = []
 
     print(f'--------------------{nome_modelo}----------------------------')
 

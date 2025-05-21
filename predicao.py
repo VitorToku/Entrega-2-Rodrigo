@@ -109,7 +109,11 @@ def get_precoCorrida():
             if nome_empresa not in precos_por_categoria:
                 precos_por_categoria[nome_empresa] = {}
 
-            precos_por_categoria[nome_empresa][categoria] = preco
+            precos_por_categoria.append({
+                "empresa": nome_empresa,
+                "categoria": categoria,
+                "preco": preco
+            })
 
     # Deriva os valores calculados para Plus e Pop Expresso
     if preco_pop_99:

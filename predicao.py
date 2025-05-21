@@ -105,10 +105,6 @@ def get_precoCorrida():
             if nome_empresa == "99" and categoria == "Pop":
                 preco_pop_99 = preco
 
-            # Cria a empresa no dicionário se necessário
-            if nome_empresa not in precos_por_categoria:
-                precos_por_categoria[nome_empresa] = {}
-
             if nome_empresa not in precos_por_categoria:
                 precos_por_categoria[nome_empresa] = {}
 

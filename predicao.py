@@ -67,11 +67,11 @@ def get_precoCorrida():
 
     # Escolher modelo
     if distancia > 15000:
-    model = modelo_linear
-    nome_modelo = "Linear Regression"
+        model = modelo_linear
+        nome_modelo = "Linear Regression"
     else:
-    model = modelo_rf
-    nome_modelo = "Random Forest"
+        model = modelo_rf
+        nome_modelo = "Random Forest"
 
     # Armazenar os preços por categoria
     precos_por_categoria = {}

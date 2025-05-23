@@ -54,7 +54,7 @@ def get_precoCorrida():
     ]
 
     # Dados da rota
-    api_key = "AIzaSyD9tS2l8dl7biMckXzNjPg_sapQnxZsauM"
+    api_key = "AIzaSyCDmnx17lJCCO7GMJEIlqeBlRjnHxfI8b8"
     rota = f"https://maps.googleapis.com/maps/api/distancematrix/json?destinations={destino}&origins={origem}&key={api_key}"
     responseRota = requests.get(rota)
     jsonRota = responseRota.json()

@@ -32,6 +32,11 @@ def prever():
 def get_precoCorrida():
     agora = datetime.now(pytz.timezone('America/Sao_Paulo'))
 
+    origem = request.args.get('origem')
+    print(f'Origem: {origem}')
+    destino = request.args.get('destino')
+    print(f'Destino: {destino}')
+
     # Categorias disponíveis
     listaCategorias = {
         3: {
@@ -50,7 +55,7 @@ def get_precoCorrida():
 
     # Dados da rota
     api_key = "AIzaSyD9tS2l8dl7biMckXzNjPg_sapQnxZsauM"
-    rota = f"https://maps.googleapis.com/maps/api/distancematrix/json?origins=fecap&destinations=porto+de+santos&departure_time=now&key={api_key}"
+    rota = f"https://maps.googleapis.com/maps/api/distancematrix/json?destinations={destino}&origins={origem}&key={api_key}"
     responseRota = requests.get(rota)
     jsonRota = responseRota.json()
 
